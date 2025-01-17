@@ -42,7 +42,7 @@ export async function handlePostRoute (pathSegments, url, request, response){
                 postsString += '<li><a href="/posts/' 
                 + cleanupHTMLOutput(documents[i]._id.toString())
                 + '">'
-                + cleanupHTMLOutput(documents[i].rubrik)
+                + cleanupHTMLOutput(documents[i].Title)
                 + '</a></li>';
             }
 
@@ -62,7 +62,41 @@ export async function handlePostRoute (pathSegments, url, request, response){
         return;
     }
 
-    if ()
+    if (request.method !== 'GET'){
+        response.writeHead(405, { 'Content-Type': 'text/plain' });
+        response.write('405 Method Not Allowed');
+        response.end();
+        return;
+    }
 
+    let postsDocument;
+
+    try{
+        postsDocument = await dbo.collection('Posts').findOne({
+            "_id": new ObjectId(nextSegment)
+        });
+    } catch (e) {
+        response.writeHead(404, { 'Content-Type': 'text/plain' });
+        response.write('404 Not Found');
+        response.end();
+        return;
+    }
+
+    if (!postsDocument) {
+        response.writeHead(404, { 'Content-Type': 'text/plain' });
+        response.write('404 Not Found');
+        response.end();
+        return;
+    }
+
+    let template = (await fs.readFile('templates/post.volvo')).toString();
+    template = template.replaceAll('%{userName}%', cleanupHTMLOutput(postsDocument.Username));
+    template = template.replaceAll('%{title}%', cleanupHTMLOutput(postsDocument.Title));
+    template = template.replaceAll('%{bodyText}%',  cleanupHTMLOutput(postsDocument.Bodytext));
+
+    response.writeHead(200, { 'Content-Type': 'text/html;charset=UTF-8' });
+    response.write(template);
+    response.end();
+    return;
 
 }
