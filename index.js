@@ -22,17 +22,7 @@ async function handleRequest(request, response){
     let nextSegment = pathSegments.shift();
 
     if (nextSegment === 'startpage') {
-        if (request.method !== 'GET') {
-            response.writeHead(405, { 'Content-Type': 'text/plain' });
-            response.write('405 Method Not Allowed');
-            response.end();
-            return;
-        }
-        let template = (await fs.readFile('templates/startpage.volvo')).toString();
-
-        response.writeHead(200, { 'Content-Type': 'text/html;charset=UTF-8' });
-        response.write(template);
-        response.end();
+		await handlePostRoute(pathSegments, url, request, response);
         return;
     }
 

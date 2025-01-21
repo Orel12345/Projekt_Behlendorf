@@ -7,9 +7,11 @@
     <title>%{userName}% - Användarnamn</title>
 </head>
 <body>
+    <a href="/startpage"><button>Tillbaka till startsidan</button></a>
     <h2>%{userName}% - inlägg</h2>
     <h2>%{title}%</h2>
     <h2>Brödtext</h2>
     <p>%{bodyText}%</p>
+  
 </body>
 </html>

@@ -7,13 +7,14 @@
     <title>Blogg</title>
 </head>
 <body>
+    
+    <a href="create-post"><button type="submit">Skapa inlägg</button></a>
     <h1>Blogg</h1>
     <h2>inlägg</h2>
     <ul>
         %{postsList}%
     </ul>
     
-    <button type="submit">Skapa inlägg</button>
 
 </body>
 </html>

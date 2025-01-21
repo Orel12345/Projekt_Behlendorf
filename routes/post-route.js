@@ -36,14 +36,19 @@ export async function handlePostRoute (pathSegments, url, request, response){
         }
 
         if (request.method === 'GET'){
-            let postsString = '';
+
+            let documents = await dbo.collection('Posts').find().toArray();
             
+            let postsString = '';
+
             for(let i = 0; i < documents.length; i++){
                 postsString += '<li><a href="/posts/' 
                 + cleanupHTMLOutput(documents[i]._id.toString())
                 + '">'
                 + cleanupHTMLOutput(documents[i].Title)
-                + '</a></li>';
+                +"("
+                + cleanupHTMLOutput(documents[i].Username)
+                + ')</a></li>';
             }
 
             let template = (await fs.readFile('templates/startpage.volvo')).toString();
@@ -98,5 +103,9 @@ export async function handlePostRoute (pathSegments, url, request, response){
     response.write(template);
     response.end();
     return;
+    
+    if (!nextNextSegment){
+        
+    }
 
 }
