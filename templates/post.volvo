@@ -12,6 +12,26 @@
     <h2>%{title}%</h2>
     <h2>Brödtext</h2>
     <p>%{bodyText}%</p>
-  
+    <button onclick="sendDeleteRequest()">Radera Inlägg</button>
+	<script>
+		function sendDeleteRequest(){
+			let request = new XMLHttpRequest();
+
+			request.onload = function(){
+				if ( request.status === 204){
+                    alert ('Är du säker på att du vill radera inlägget ?');
+					alert("Inlägget har raderats");
+					window.location = '/posts';
+				} else {
+					alert("Kunde inte radera inlägget");
+				}
+			};
+
+			request.open('DELETE', '/posts/%{postId}%');
+
+			request.send();
+		}
+	</script>
+    
 </body>
 </html>

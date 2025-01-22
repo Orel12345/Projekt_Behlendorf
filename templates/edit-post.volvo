@@ -4,16 +4,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YappingSpace</title>
+    <title>Document</title>
 </head>
 <body>
     
-    <h1>Välkommen till YapSpace</h1>
-    <h2>inlägg</h2>
-    <ul>
-        %{postsList}%
-    </ul>
-    <a href="create-post"><button type="submit">Skapa inlägg</button></a>
-
 </body>
 </html>

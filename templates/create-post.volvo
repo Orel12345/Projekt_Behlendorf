@@ -7,11 +7,13 @@
     <title>Skapa ett inlägg</title>
 </head>
 <body>
+    <h1>Skapa inlägg på YapSpace</h1>
     <form action="/posts" method="POST">
 		<input type="Username" name="userName" placeholder="Användarnamn" required>
 		<input type="Title" name="title" placeholder="Rubrik" required>
-		<input type="Bodytext" name="bodyText" placeholder="Brödtext" required>
+		<textarea type="Bodytext" name="bodyText" placeholder="Brödtext" required></textarea>
 		<button type="submit">Skicka inlägg</button>
 	</form>
+    <a href="/startpage"><button>Tillbaka till startsidan</button></a>
 </body>
 </html>
