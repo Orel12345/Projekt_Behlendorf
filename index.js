@@ -44,6 +44,7 @@ async function handleRequest(request, response){
 		return;
 	}
 
+
     if (nextSegment === 'posts') {
 		await handlePostRoute(pathSegments, url, request, response);
         return;

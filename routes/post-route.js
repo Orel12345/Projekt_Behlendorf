@@ -77,6 +77,7 @@ export async function handlePostRoute(pathSegments, url, request, response) {
                     "_id": new ObjectId(nextSegment)
                 });
             } catch (e) {
+                console.log('Hej1');
                 response.writeHead(404, { 'Content-Type': 'text/plain' });
                 response.write('404 Not Found');
                 response.end();
@@ -84,6 +85,7 @@ export async function handlePostRoute(pathSegments, url, request, response) {
             }
 
             if (!postsDocument) {
+                console.log('hej2');
                 response.writeHead(404, { 'Content-Type': 'text/plain' });
                 response.write('404 Not Found');
                 response.end();
@@ -110,6 +112,7 @@ export async function handlePostRoute(pathSegments, url, request, response) {
                     "_id": new ObjectId(nextSegment)
                 });
             } catch (e){
+                console.log('hej3');
                 response.writeHead(404, {'Content-Type': 'text/plain'});
                 response.write('404 Not Found');
                 response.end();
@@ -120,5 +123,87 @@ export async function handlePostRoute(pathSegments, url, request, response) {
             response.end();
             return;
         }
+
+        if (request.method === 'PUT'){
+            let body = await getRequestBody(request);
+
+            let params = new URLSearchParams(body);
+
+            console.log(params);
+
+            if (!params.get('title') || !params.get('bodyText')){
+                response.writeHead(400, {'Content-Type': 'text/plain'});
+                response.write('400 Bad Request');
+                response.end();
+                return;
+            }
+
+            await dbo.collection('Posts').updateOne({
+				"_id": new ObjectId(nextSegment)
+			}, {
+				'$set':{
+					'Title': params.get('title'),
+					'Bodytext': params.get('bodyText')
+				}
+			});
+
+            response.writeHead(204);
+            response.end();
+            return;
+        }
+
+        response.writeHead(405, {'Content-Type': 'text/plain'});
+        response.write('405 Method Not Allowed');
+        response.end();
+        return;
     }
+
+    if (nextNextSegment === 'edit'){
+        console.log('hej1');
+        if (request.method === 'GET'){
+            console.log('hej2');
+            let postsDocument;
+            try{
+                postsDocument = await dbo.collection('Posts').findOne({
+                    "_id": new ObjectId(nextSegment)
+                });
+            } catch (e){
+                console.log('hej4');
+                response.writeHead(404, {'Content-Type': 'text/plain'});
+                response.write('404 Not Found');
+                response.end();
+                return;
+            }
+
+            if(!postsDocument){
+                console.log('hej5');
+                response.writeHead(404, { 'Content-Type': 'text/plain' });
+				response.write('404 Not Found');
+				response.end();
+				return;
+            }
+
+            let template = (await fs.readFile('templates/edit-post.volvo')).toString();
+            template = template.replaceAll('%{postId}%', cleanupHTMLOutput(postsDocument._id.toString()));
+            template = template.replaceAll('%{userName}%', cleanupHTMLOutput(postsDocument.Username));
+            template = template.replaceAll('%{title}%', cleanupHTMLOutput(postsDocument.Title));
+            template = template.replaceAll('%{bodyText}%', cleanupHTMLOutput(postsDocument.Bodytext));
+
+            response.writeHead(200, { 'Content-Type': 'text/html;charset=UTF-8' });
+			response.write(template);
+			response.end();
+			return;
+        }
+
+        response.writeHead(405, { 'Content-Type': 'text/plain' });
+		response.write('405 Method Not Allowed');
+		response.end();
+		return;
+    }
+
+    console.log('hej6');
+    response.writeHead(404, { 'Content-Type': 'text/plain' });
+	response.write('404 Not Found');
+	response.end();
+	return;
 }
