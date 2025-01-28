@@ -4,11 +4,17 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/styles.css">
     <title>YappingSpace</title>
 </head>
 <body>
-    
-    <h1>Välkommen till YapSpace</h1>
+
+    <header>
+        <img src="/static/media/YapspaceLogo.webp" alt="">
+        <h1>YapSpace</h1>
+    </header>
+   
+    <h2>Välkommen till YapSpace där du kan lägga ut inlägg om vad du vill. Det är bara att yappa på.</h2>
     <h2>inlägg</h2>
     <ul>
         %{postsList}%

@@ -3,6 +3,7 @@ import http from 'http';
 import { MongoClient } from 'mongodb';
 import { handlePostRoute } from './routes/post-route.js';
 import { getRequestBody } from './utilities.js';
+import { handleStaticFileRequest } from './static-file-handler.js';
 import fs from 'fs/promises';
 
 let dbConn = await MongoClient.connect(process.env.MONGODB_CONNECTION_STRING);
@@ -20,6 +21,10 @@ async function handleRequest(request, response){
 	});
 
     let nextSegment = pathSegments.shift();
+	if (nextSegment === 'static'){
+        await handleStaticFileRequest(pathSegments, request, response);
+        return;
+    }
 
     if (nextSegment === 'startpage') {
 		await handlePostRoute(pathSegments, url, request, response);

@@ -4,10 +4,15 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/styles.css">
     <title>Redigera Profil</title>
 </head>
 <body>
-    <h1>Redigera %{userName}%s inlägg</h1>
+    <header>
+        <img src="/static/media/YapspaceLogo.webp" alt="">
+        <h1>Redigera %{userName}%s inlägg</h1> 
+    </header>
+   
     <form action="/post/%{postId}%" method="POST" onsubmit="sendPutRequest(event)">
         <input type="Title" name="title" placeholder="Rubrik" value="%{title}%" required>
 		<textarea type="Bodytext" name="bodyText" placeholder="Brödtext" required>%{bodyText}%</textarea>

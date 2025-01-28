@@ -159,16 +159,16 @@ export async function handlePostRoute(pathSegments, url, request, response) {
     }
 
     if (nextNextSegment === 'edit'){
-        console.log('hej1');
+        
         if (request.method === 'GET'){
-            console.log('hej2');
+           
             let postsDocument;
             try{
                 postsDocument = await dbo.collection('Posts').findOne({
                     "_id": new ObjectId(nextSegment)
                 });
             } catch (e){
-                console.log('hej4');
+                
                 response.writeHead(404, {'Content-Type': 'text/plain'});
                 response.write('404 Not Found');
                 response.end();
@@ -176,7 +176,7 @@ export async function handlePostRoute(pathSegments, url, request, response) {
             }
 
             if(!postsDocument){
-                console.log('hej5');
+               
                 response.writeHead(404, { 'Content-Type': 'text/plain' });
 				response.write('404 Not Found');
 				response.end();

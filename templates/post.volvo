@@ -7,12 +7,17 @@
     <title>%{userName}% - Användarnamn</title>
 </head>
 <body>
-    <a href="/startpage"><button>Tillbaka till startsidan</button></a>
-    <h2>%{userName}%s - inlägg</h2>
+	<header>
+		<a href="/startpage"><button>Tillbaka till startsidan</button></a>
+		<img src="/static/media/YapspaceLogo.webp" alt="">
+    	<h2>%{userName}%s - inlägg</h2>
+	</header>
+    
     <h2>%{title}%</h2>
     <h2>Brödtext</h2>
     <p>%{bodyText}%</p>
     <a href="/posts/%{postId}%/edit"><button>Redigera Inlägg</button></a>
+	<link rel="stylesheet" href="/static/styles.css">
     <button onclick="sendDeleteRequest()">Radera Inlägg</button>
 	<script>
 		function sendDeleteRequest(){
