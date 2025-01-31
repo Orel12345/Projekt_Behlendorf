@@ -201,7 +201,7 @@ export async function handlePostRoute(pathSegments, url, request, response) {
 		return;
     }
 
-    console.log('hej6');
+  
     response.writeHead(404, { 'Content-Type': 'text/plain' });
 	response.write('404 Not Found');
 	response.end();
